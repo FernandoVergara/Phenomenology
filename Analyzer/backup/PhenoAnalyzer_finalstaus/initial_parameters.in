@@ -1,0 +1,11 @@
+// For Jets
+lead_jet_pt: mm.0
+jet_eta_max: 2.5
+b_jet_pt_min: 20.0
+DR_jet_elec_max: 0.3
+// For Taus
+tau1_pt_min: 30.0 
+tau2_pt_min: 5.0
+tau_eta_max: 2.5
+// Topology
+met_min: 70.0
