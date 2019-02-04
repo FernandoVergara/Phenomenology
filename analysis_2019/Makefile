@@ -1,24 +1,3 @@
-# -------------------------------------------------
-# -------     Universidad de los Andes      -------
-# -------      Departamento de Física       -------
-# -------    Proyecto Joven Investigador    -------
-# -------  Andrés Felipe García Albarracín  -------
-# -------    Juan Carlos Sanabria Arenas    -------
-# -------          February - 2015          -------
-# -------------------------------------------------
-# This makefile serves to compile c++ programs using HepMC and Root libraries
-#
-# Usage of the program
-# Write one of the next possibilities:
-# make compile                    To compile without Root nor HepMC
-# make compile_ROOT               To compile with Root and without HepMC
-# make compile_HepMC              To compile without Root and with HepMC
-# make compile_ROOT_HepMC         To compile with Root and HepMC
-
-# Modify the following variables according to your c++ compiler and your 
-# local Root and HepMC installation folders. If you do not use any of these
-# programs, leave blank.
-
 # C++ Compiler
 CXX=g++
 
@@ -34,20 +13,15 @@ HEPMCLIB=$(HEPMCDIR)/lib
 HEPMCINC=$(HEPMCDIR)/include/
 
 # Root flags and libs
-#ROOTFLAGLIB=root-config --cflags --glibs
-ROOTLIB=$(ROOTSYS)/lib
-ROOTLIBS='-lPhysics'
-#ROOTPHYLIB=/usr/local/HEP/ROOT6.14.02/lib # Directory where is located libPhysics.so
-#ROOTPHYLIB=/home/aflorez/Documents/root/lib # Directory where is located libPhysics.so
+ROOTCFLAGS=$(shell root-config --cflags)
+ROOTLIBS=$(shell root-config --libs)  
+ROOTGLIBS=$(shell root-config --glibs)  
 
 # Directory of Exrootanalysis
-#EXROOTLIB=/usr/local/HEP/MG5_aMC_v2_6_3_2/ExRootAnalysis
-#EXROOTINC=/usr/local/HEP/MG5_aMC_v2_6_3_2/ExRootAnalysis/ExRootAnalysis
-#EXROOTINC=/home/aflorez/SIMULATIONS/MG5_aMC_v2_6_4/Delphes/external/ExRootAnalysis/
-#EXROOTLIB=/home/aflorez/SIMULATIONS/MG5_aMC_v2_6_4/ExRootAnalysis/
-EXROOTINC=/home/aflorez/SIMULATIONS/MG5_aMC_v2_6_4/Delphes-3.4.1/external/ExRootAnalysis
+EXROOTDIR=/home/aflorez/SIMULATIONS/MG5_aMC_v2_6_4/ExRootAnalysis
+EXROOTLIB=$(EXROOTDIR)/lib
+EXROOTINC=$(EXROOTDIR)/ExRootAnalysis
 
-#EXROOTINC=/home/aflorez/SIMULATIONS/MG5_aMC_v2_6_4/ExRootAnalysis/ExRootAnalysis
 
 # Directory of Delphes
 DELPHESDIR=/home/aflorez/SIMULATIONS/MG5_aMC_v2_6_4/Delphes-3.4.1
@@ -70,7 +44,7 @@ compile: $(MAINFILE) $(OTHERFILES)
 
 # To compile with Root and without HepMC
 compile_ROOT: $(MAINFILE) $(OTHERFILES)
-	$(CXX) -o $(TARGETFILE) $(MAINFILE) $(SOURCEFILES)`root-config --cflags --glibs` \
+	$(CXX) -o $(TARGETFILE) $(MAINFILE) $(SOURCEFILES)`root-config --cflags` \
           -I$(EXROOTINC) \
           -L$(EXROOTLIB) -lExRootAnalysis -L$(ROOTPHYLIB) -lPhysics
 
@@ -88,7 +62,7 @@ compile_ROOT_HepMC: $(MAINFILE) $(OTHERFILES)
 
 # To compile with Root and Delphes
 compile_ROOT_Delphes: $(MAINFILE) $(OTHERFILES)
-	$(CXX) -o $(TARGETFILE) $(MAINFILE) $(SOURCEFILES) -Wall `root-config --ldflags --glibs --cflags` \
-         -I$(DELPHESINC) -I$(HEPMCINC) -I$(EXROOTINC) \
-         -L$(DELPHESLIB) -L$(HEPMCLIB) -lDelphes -L$(EXROOTLIB) -lExRootAnalysis -L$(ROOTLIB) $(ROOTLIBS)
+	$(CXX) -o $(TARGETFILE) $(MAINFILE) $(SOURCEFILES) -Wall $(ROOTCFLAGS) 	\
+	-I$(DELPHESINC) -I$(EXROOTINC)	\
+	-L$(DELPHESLIB) -lDelphes -L$(EXROOTLIB) -lExRootAnalysis $(ROOTLIBS)
 
