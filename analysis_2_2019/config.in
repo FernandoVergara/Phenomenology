@@ -1,0 +1,34 @@
+isSignal: 0
+// For Jets
+jet_min_pt: 30.0
+jet_eta_max: 2.5
+b_jet_pt_min: 30.0
+DR_jet_lep_max: 0.3
+// For Taus
+tau_pt_cut: 8.0
+gen_tau_pt_min: 8.0
+gen_tau2_pt_min: 8.0
+// For Muons
+muon_pt_cut: 8.0
+gen_muon_pt_min: 8.0
+gen_muon2_pt_min: 8.0
+// Topology
+met_min: 0.0
+transversemassmin: 0.0
+//Histograms cuts
+tau_eta_cut: 2.5
+muon_eta_cut: 2.5
+elec_eta_cut: 2.5
+elec_pt_cut: 8.0
+deltaEta_diJet_cut: 0.0
+diJetmass_cut: 10.0 
+VBF_jetPt_min = 30.0
+tauMass_cut: 0.0
+MET_cut: 0.0
+transmass_cut: 0.0
+ipTau1_cut: 0.0
+muTau_mass_input: 20.0
+muMu_mass_input: 20.0
+tauTau_mass_input: 20.0
+elecTau_mass_input: 20.0
+elecElec_mass_input: 20.0
